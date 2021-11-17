@@ -1,0 +1,31 @@
+.wrapper {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+  position: absolute;
+  z-index: 3;
+  inset: 50% 0 0 50%;
+  transform: translate(-50%, -50%);
+  width: 1208px;
+}
+
+.card {
+  width: 280px;
+  margin: 10px;
+  max-height: 217px;
+  background-color: rgba(39, 39, 40, .2);
+  backdrop-filter: blur(6px);
+  border: 1px solid #bfbfbf;
+  border-radius: 4px;
+}
+
+.addCard {
+  width: 280px;
+  margin: 10px;
+  max-height: 217px;
+  background: transparent;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: unset;
+}
