@@ -7,6 +7,7 @@ function App() {
     
     return (
         <main className={style.app}>
+            <h1 className={style.title}>Weather forecast</h1>
             <Switch>
                 <Route exact path='/'>
                     <CityList/>

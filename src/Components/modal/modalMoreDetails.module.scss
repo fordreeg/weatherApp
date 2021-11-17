@@ -90,3 +90,26 @@
   font-weight: 500;
   font-size: 17px;
 }
+.errorPopup {
+  color: #ffffff;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 1.1;
+  &__wrapper {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    top: -50px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 3px;
+    padding: 10px 20px;
+    background-color: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(4px);
+  }
+  &__close {
+    color: red;
+    margin-left: 15px;
+    cursor: pointer;
+  }
+}

@@ -10,12 +10,14 @@ const SET_FORECAST_CITIES = 'SET_FORECAST_CITIES',
     SET_ERROR = 'SET_ERROR',
     UPLOAD_HOURLY_FORECAST = 'UPLOAD_HOURLY_FORECAST',
     RESET_HOURLY_FORECAST = 'RESET_HOURLY_FORECAST',
+    HIDDEN_IDENTICAL_CITY = 'HIDDEN_IDENTICAL_CITY',
     REMOVE_CITY = 'REMOVE_CITY';
 
 const initialState = {
     cities: [],
     isFetching: null,
     isUpdate: [],
+    isIdenticalCity: false,
     newCityName: '',
     hourlyForecast: null,
 };
@@ -26,13 +28,22 @@ export default function cityListReducer(state = initialState, action) {
             
             if (identicalCities) {
                 return {
-                    ...state
+                    ...state,
+                    isIdenticalCity: true,
+                    newCityName: '',
                 }
             } else {
                 return {
                     ...state,
-                    cities: [...state.cities, action.cityData]
+                    cities: [...state.cities, action.cityData],
+                    newCityName: '',
+                    isIdenticalCity: false,
                 }
+            }
+        case HIDDEN_IDENTICAL_CITY:
+            return {
+                ...state,
+                isIdenticalCity: false
             }
         case SET_DEFAULT_FORECAST_CITIES:
             return {
@@ -101,6 +112,7 @@ export const updateInProgressAC = (cityID, isUpdate) => ({type: IS_UPDATE, cityI
 export const uploadHourlyForecastAC = (hourlyForecas) => ({type: UPLOAD_HOURLY_FORECAST, hourlyForecas});
 export const removeCityAC = (cityID) => ({type: REMOVE_CITY, cityID});
 export const resetHourlyForecastAC = () => ({type: RESET_HOURLY_FORECAST});
+export const hiddenIdenticalCityAC = () => ({type: HIDDEN_IDENTICAL_CITY});
 
 export const getCity = (cityID) => async (dispatch) => {
     dispatch(toggleFetchingAC(true));
@@ -154,5 +166,8 @@ export const resetHourlyForecast = () => (dispatch) => {
     dispatch(resetHourlyForecastAC())
 }
 
+export const hiddenIdenticalCityError = () => (dispatch) => {
+    dispatch(hiddenIdenticalCityAC())
+}
 
 

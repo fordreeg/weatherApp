@@ -8,7 +8,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 import AddIcon from "@mui/icons-material/Add";
 import {Fab} from "@mui/material";
 import {useDispatch, useSelector} from "react-redux";
-import {getNewCity, setNewCityName} from "../../Redux/city_list_reducer";
+import {getNewCity, hiddenIdenticalCityError, setNewCityName} from "../../Redux/city_list_reducer";
 import style from './modalMoreDetails.module.scss'
 
 
@@ -17,7 +17,11 @@ const AddNewCardModal = () => {
          [error, setError] = useState(false),
         dispatch = useDispatch();
     const newCityName = useSelector(state => state.cities.newCityName),
-         store = useSelector(state => state.cities.newCityName);
+        isIdenticalCity = useSelector(state => state.cities.isIdenticalCity);
+    
+    const onHiddenIdenticalCityError = () => {
+        dispatch((hiddenIdenticalCityError()))
+    }
     
     const handleClickOpen = () => {
         setOpen(true);
@@ -28,8 +32,10 @@ const AddNewCardModal = () => {
     };
     
     const handleSubmit = () => {
-        let response = dispatch(getNewCity(newCityName)).then(
-            result => setOpen(false),
+        dispatch(getNewCity(newCityName)).then(
+            result => {
+                setOpen(false)
+            },
             error => setError(error.response.data.message)
         );
     };
@@ -37,8 +43,16 @@ const AddNewCardModal = () => {
     const onChange = (e) => {
         dispatch(setNewCityName(e.target.value))
     };
+
     return (
         <div>
+            <div>
+                {isIdenticalCity && <div className={style.errorPopup__wrapper}>
+                    <span className={style.errorPopup}>The weather forecast for this city is already on your list</span>
+                    <span className={style.errorPopup__close} onClick={onHiddenIdenticalCityError}>&#10006;</span>
+                </div>}
+                
+            </div>
             <Fab color="inherit" aria-label="add" sx={{
                 color: '#ffff',
                 backgroundColor: 'transparent',
