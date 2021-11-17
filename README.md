@@ -1,5 +1,5 @@
 ## 🌍 **Weather App (SPA showing weather in selected cities)**
-### 🔗 Link to the page with the application https://fordreeg.github.io/
+### 🔗 Link to the page with the application https://fordreeg.github.io/weatherApp/
    ***
 ###📄 Application functionality
 * city weather card
